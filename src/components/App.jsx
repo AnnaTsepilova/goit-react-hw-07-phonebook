@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts } from 'redux/operations';
 import { setFilterContact } from 'redux/filterSlice';
-import { getError, getIsLoading } from 'redux/selectors';
+import { selectError, selectIsLoading } from 'redux/selectors';
 
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 import { PhonePageWrapper, PhonebookContainer, Title } from './App.styled';
@@ -18,8 +18,8 @@ import Footer from 'components/Footer/Footer';
 
 export default function App() {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchContacts());

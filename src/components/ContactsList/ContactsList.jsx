@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
 
 import ContactItem from 'components/ContactItem/ContactItem';
 import { ContactsListContainer } from 'components/ContactsList/ContactsList.styled';
@@ -13,7 +13,7 @@ const getVisibleContacts = (items, searchQuery) => {
 };
 
 export default function ContactsList() {
-  const items = useSelector(getContacts);
+  const items = useSelector(selectContacts);
   const filter = useSelector(state => state.filter);
 
   const visibleContacts = getVisibleContacts(items, filter.filter);

@@ -6,7 +6,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
 
 import {
   FormContainer,
@@ -19,7 +19,7 @@ export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const items = useSelector(getContacts);
+  const items = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const nameInputId = nanoid();
