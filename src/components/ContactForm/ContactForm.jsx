@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/operations';
+
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+
+import { getContacts } from 'redux/selectors';
+
 import {
   FormContainer,
   Label,
@@ -8,9 +15,12 @@ import {
   Button,
 } from 'components/ContactForm/ContactForm.styled';
 
-export default function ContactForm({ onSubmit }) {
+export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const items = useSelector(getContacts);
+  const dispatch = useDispatch();
 
   const nameInputId = nanoid();
   const telInputId = nanoid();
@@ -24,7 +34,42 @@ export default function ContactForm({ onSubmit }) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    onSubmit({ id: nanoid(), name: name, number: number });
+    let isContactName = items.filter(item =>
+      item.name.toLowerCase().includes(event.target.name.value.toLowerCase())
+    );
+    let isContactNumber = items.filter(item =>
+      item.phone.toLowerCase().includes(event.target.number.value.toLowerCase())
+    );
+
+    if (isContactName.length) {
+      Notify.warning(
+        `Name ${event.target.name.value} is already in your contacts`,
+        {
+          background: '#eebf31',
+          fontSize: '16px',
+          width: '350px',
+        }
+      );
+      return;
+    }
+
+    if (isContactNumber.length) {
+      Notify.warning(
+        `Number ${event.target.number.value} is already in your contacts`,
+        {
+          background: '#eebf31',
+          fontSize: '16px',
+          width: '350px',
+        }
+      );
+      return;
+    }
+    dispatch(
+      addContact({
+        name: event.target.name.value,
+        phone: event.target.number.value,
+      })
+    );
     reset();
   };
 

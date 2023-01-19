@@ -15,7 +15,6 @@ code {
     monospace;
 }
 
-body,
 h1,
 h2,
 h3,
@@ -26,6 +25,29 @@ ol,
 li {
   margin: 0;
   padding: 0;
+}
+body {
+  margin: 0;
+  padding: 0;
+
+  /* scrollbar in Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #2196f3 #eebf31;
+}
+
+/* scrollbar in Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 13px;
+}
+
+::-webkit-scrollbar-track {
+  background: #eebf31bb;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #eebf31bb;
+  border: 10px solid #3f9eec;
+  border-radius: 20px;
 }
 
 /* ul,

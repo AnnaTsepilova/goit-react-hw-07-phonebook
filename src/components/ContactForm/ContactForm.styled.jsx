@@ -4,7 +4,7 @@ export const FormContainer = styled.form`
   padding: 0 20px 25px 20px;
 
   background-color: ${props => props.theme.colors.background};
-  border-bottom: 7px solid #2196f3;
+  border-bottom: 7px solid #3f9eec;
 `;
 
 export const Label = styled.label`

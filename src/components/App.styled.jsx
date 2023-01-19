@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const PhonePageWrapper = styled.main`
-  min-height: calc(100vh - 64px);
+  min-height: 100vh;
   min-width: 320px;
   width: 100%;
 
@@ -29,7 +29,6 @@ export const Title = styled.h1`
   font-size: ${props => props.theme.fontSizes.xl}px;
   font-weight: ${props => props.theme.fontWeights.bold};
   color: ${props => props.theme.colors.primary};
-  //border-bottom: 2px solid #2196f3;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 `;
 

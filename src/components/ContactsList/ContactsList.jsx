@@ -1,44 +1,28 @@
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getContacts } from 'redux/selectors';
 
-import {
-  ContactsListContainer,
-  ContactsItem,
-  Text,
-} from 'components/ContactsList/ContactsList.slyled';
-import { DeleteButton } from 'components/ContactForm/ContactForm.styled';
+import ContactItem from 'components/ContactItem/ContactItem';
+import { ContactsListContainer } from 'components/ContactsList/ContactsList.styled';
+import { Text } from 'components/ContactItem/ContactItem.styled';
 
-const getVisibleContacts = (contacts, searchQuery) => {
-  return contacts.filter(contact =>
-    contact.name.toLowerCase().includes(searchQuery.toLowerCase())
+const getVisibleContacts = (items, searchQuery) => {
+  return items.filter(item =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 };
 
-export default function ContactsList({ onDelete }) {
-  const contacts = useSelector(state => state.contacts.contacts);
+export default function ContactsList() {
+  const items = useSelector(getContacts);
   const filter = useSelector(state => state.filter);
 
-  const visibleContacts = getVisibleContacts(contacts, filter.filter);
+  const visibleContacts = getVisibleContacts(items, filter.filter);
 
   return (
     <ContactsListContainer>
       {visibleContacts.length ? (
-        visibleContacts.map(contact => {
-          return (
-            <ContactsItem key={contact.id}>
-              <Text>
-                {contact.name}: {contact.number}
-              </Text>
-              <DeleteButton
-                type="button"
-                onClick={() => {
-                  onDelete(contact.id);
-                }}
-              >
-                Delete
-              </DeleteButton>
-            </ContactsItem>
-          );
+        visibleContacts.map(item => {
+          return <ContactItem key={item.id} contact={item} />;
         })
       ) : (
         <Text>There is no contact in your phonebook</Text>
@@ -48,5 +32,10 @@ export default function ContactsList({ onDelete }) {
 }
 
 ContactsList.propTypes = {
-  onDelete: PropTypes.func.isRequired,
+  searchQuery: PropTypes.string,
+  items: PropTypes.objectOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+    })
+  ),
 };
